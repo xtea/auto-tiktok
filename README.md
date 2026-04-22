@@ -29,10 +29,10 @@ uv run playwright install chromium
 ## Export your TikTok cookies
 
 1. Install a cookie-export browser extension. Recommended:
-   - [Get cookies.txt LOCALLY](https://chromewebstore.google.com/detail/get-cookiestxt-locally/cclelndahbckbenkjhflpdbgdldlbecc) (Chrome)
-   - [Cookie-Editor](https://cookie-editor.com/) (all browsers)
+   - [Get cookies.txt LOCALLY](https://chromewebstore.google.com/detail/get-cookiestxt-locally/cclelndahbckbenkjhflpdbgdldlbecc) (Chrome) — exports Netscape `.txt`
+   - [Cookie-Editor](https://cookie-editor.com/) (all browsers) — exports JSON
 2. Log into [tiktok.com](https://www.tiktok.com) in your browser.
-3. Open the extension on the TikTok tab and export cookies in **Netscape format** to `cookies.txt`.
+3. Open the extension on the TikTok tab and export cookies. Either **Netscape `.txt`** or **JSON** format works — auto-tiktok auto-detects.
 4. Import them into auto-tiktok:
 
 ```bash

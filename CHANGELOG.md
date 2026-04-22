@@ -14,3 +14,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `doctor` command: verify tiktok-uploader install, Playwright Chromium binaries, and cookie validity.
 - macOS compatibility patches for `tiktok-uploader` (Cmd+A text selection, modal dismissal).
 - Dry-run mode for previewing uploads without launching the browser.
+- JSON cookie export support (Cookie-Editor / EditThisCookie format) in addition to Netscape `cookies.txt`.

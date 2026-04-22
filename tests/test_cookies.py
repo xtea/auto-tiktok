@@ -12,6 +12,7 @@ from auto_tiktok.cookies import (
 FIXTURES = Path(__file__).parent / "fixtures"
 SAMPLE = FIXTURES / "sample_cookies.txt"
 EMPTY = FIXTURES / "no_tiktok_cookies.txt"
+SAMPLE_JSON = FIXTURES / "sample_cookies.json"
 
 
 def test_filter_keeps_only_tiktok_entries(tmp_path: Path) -> None:
@@ -61,6 +62,26 @@ def test_has_sessionid_true() -> None:
 
 def test_has_sessionid_false() -> None:
     assert has_sessionid(EMPTY) is False
+
+
+def test_filter_json_cookies(tmp_path: Path) -> None:
+    out = tmp_path / "filtered.txt"
+    result = filter_tiktok_cookies(SAMPLE_JSON, dest=out)
+
+    text = result.read_text()
+    assert text.startswith("# Netscape HTTP Cookie File")
+    assert "FAKE_SESSION_JSON_ABC" in text
+    assert "FAKE_WEBID_JSON_999" in text
+    assert "SHOULD_BE_FILTERED_OUT_JSON" not in text
+    assert count_tiktok_entries(result) == 2
+    assert has_sessionid(result) is True
+
+
+def test_filter_json_raises_on_malformed(tmp_path: Path) -> None:
+    bad = tmp_path / "bad.json"
+    bad.write_text("{not valid json")
+    with pytest.raises(ValueError):
+        filter_tiktok_cookies(bad, dest=tmp_path / "out.txt")
 
 
 def test_filter_skips_comment_lines(tmp_path: Path) -> None:
