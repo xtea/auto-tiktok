@@ -149,23 +149,51 @@ def _dismiss_modals(page) -> None:
             pass
 
 
+def _clear_caption_box(page) -> None:
+    """Select-all + backspace the TikTok caption contenteditable.
+
+    TikTok auto-fills the caption with the uploaded file's basename. Upstream
+    tiktok-uploader clears this with ``locator.press("Control+A")`` which is a
+    no-op on macOS, so the filename leaks into the final description. We do
+    the clear ourselves using the right platform shortcut.
+    """
+    shortcut = "Meta+A" if platform.system() == "Darwin" else "Control+A"
+    try:
+        desc = page.locator("xpath=//div[@contenteditable='true']").first
+        desc.wait_for(state="visible", timeout=10_000)
+        desc.click()
+        page.keyboard.press(shortcut)
+        page.keyboard.press("Backspace")
+        page.wait_for_timeout(200)
+        log.info("Pre-cleared caption box with %s", shortcut)
+    except Exception as exc:
+        log.debug("Pre-clear skipped (%s): %s", type(exc).__name__, exc)
+
+
 def _patch_pre_interaction(upload_module) -> None:
-    """Wrap `_set_description` and `_set_interactivity` with overlay dismissal."""
+    """Wrap `_set_description` and `_set_interactivity` with overlay dismissal.
+
+    For `_set_description` we additionally pre-clear the contenteditable
+    caption box because upstream's clear step uses Control+A which is a no-op
+    on macOS.
+    """
 
     for name in ("_set_description", "_set_interactivity"):
         original = getattr(upload_module, name, None)
         if original is None:
             continue
 
-        def _make_wrapper(orig):
+        def _make_wrapper(orig, fn_name):
             def _wrapped(*args, **kwargs):
                 if args:
                     page = args[0]
                     _dismiss_joyride(page)
                     _dismiss_modals(page)
+                    if fn_name == "_set_description":
+                        _clear_caption_box(page)
                 return orig(*args, **kwargs)
 
             return _wrapped
 
-        setattr(upload_module, name, _make_wrapper(original))
+        setattr(upload_module, name, _make_wrapper(original, name))
         log.info("Patched %s() with joyride + modal dismissal", name)
