@@ -5,6 +5,7 @@ from __future__ import annotations
 import logging
 import os
 import shutil
+import subprocess
 import sys
 from pathlib import Path
 from typing import Annotated
@@ -245,6 +246,36 @@ def import_cookies(
             "[yellow]warning:[/yellow] no sessionid cookie found — you may not be "
             "authenticated."
         )
+
+
+@app.command("install-browser")
+def install_browser(
+    browser: Annotated[
+        str,
+        typer.Option(
+            "--browser",
+            help="Which Playwright browser to install. Default: chromium.",
+        ),
+    ] = "chromium",
+) -> None:
+    """Download the Playwright browser binary required for uploading."""
+    console.print(f"Running [bold]playwright install {browser}[/bold]…")
+    try:
+        result = subprocess.run(
+            [sys.executable, "-m", "playwright", "install", browser],
+            check=False,
+        )
+    except FileNotFoundError as exc:
+        err_console.print(f"[red]error:[/red] {exc}")
+        raise typer.Exit(code=5) from exc
+
+    if result.returncode != 0:
+        err_console.print(
+            f"[red]error:[/red] playwright install exited {result.returncode}"
+        )
+        raise typer.Exit(code=result.returncode)
+
+    console.print(f"[green]:heavy_check_mark:[/green] {browser} installed.")
 
 
 @app.command()

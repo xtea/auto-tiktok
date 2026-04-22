@@ -43,8 +43,10 @@ dev = [
 auto-tiktok = "auto_tiktok.cli:app"
 
 [project.urls]
-Homepage = "https://github.com/jasonwang/auto-tiktok"
-Issues = "https://github.com/jasonwang/auto-tiktok/issues"
+Homepage = "https://github.com/xtea/auto-tiktok"
+Repository = "https://github.com/xtea/auto-tiktok"
+Issues = "https://github.com/xtea/auto-tiktok/issues"
+Changelog = "https://github.com/xtea/auto-tiktok/blob/main/CHANGELOG.md"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/auto_tiktok"]
