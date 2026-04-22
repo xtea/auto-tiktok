@@ -12,18 +12,37 @@ TikTok's official Content Posting API requires business verification, app review
 
 Requires Python 3.11+.
 
+### Quick install (recommended)
+
 ```bash
-uv tool install git+https://github.com/jasonwang/auto-tiktok
-playwright install chromium
+# via uv (installs globally, isolated)
+uv tool install auto-tiktok
+auto-tiktok install-browser
+
+# or via pipx
+pipx install auto-tiktok
+auto-tiktok install-browser
+
+# or plain pip
+pip install auto-tiktok
+auto-tiktok install-browser
 ```
 
-Or from a local clone:
+The `install-browser` step downloads the Chromium binary Playwright needs (~150 MB). You only run it once.
+
+### One-shot run without installing
 
 ```bash
-git clone https://github.com/jasonwang/auto-tiktok
+uvx auto-tiktok publish --video my.mp4 --caption "..."
+```
+
+### From source
+
+```bash
+git clone https://github.com/xtea/auto-tiktok
 cd auto-tiktok
 uv sync
-uv run playwright install chromium
+uv run auto-tiktok install-browser
 ```
 
 ## Export your TikTok cookies

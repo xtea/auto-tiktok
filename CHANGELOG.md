@@ -15,3 +15,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - macOS compatibility patches for `tiktok-uploader` (Cmd+A text selection, modal dismissal).
 - Dry-run mode for previewing uploads without launching the browser.
 - JSON cookie export support (Cookie-Editor / EditThisCookie format) in addition to Netscape `cookies.txt`.
+- `install-browser` subcommand that wraps `playwright install chromium` so users need only one command after install.
+- GitHub Actions CI (lint + tests on 3.11 / 3.12) and release workflow (trusted publishing to PyPI on `v*` tags).
