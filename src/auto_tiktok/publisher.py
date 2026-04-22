@@ -83,11 +83,18 @@ def publish_video(
         description[:80] + ("…" if len(description) > 80 else ""),
     )
 
-    _upload_video(
+    failed = _upload_video(
         filename=str(video_path),
         description=description,
         cookies=str(filtered_cookies),
         headless=headless,
         schedule=schedule_seconds,
     )
+    # tiktok-uploader returns a list of failed uploads (empty on success).
+    if failed:
+        raise RuntimeError(
+            "tiktok-uploader reported the upload failed. "
+            "Common causes: onboarding overlay, expired cookies, 2FA, or "
+            "TikTok UI changes. Run with --no-headless to watch the browser."
+        )
     log.info("Upload complete: %s", video_path.name)
