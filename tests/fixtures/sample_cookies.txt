@@ -1,0 +1,7 @@
+# Netscape HTTP Cookie File
+# Synthetic fixture — NOT real credentials.
+.tiktok.com	TRUE	/	TRUE	1893456000	sessionid	FAKE_SESSION_ABC123
+.tiktok.com	TRUE	/	TRUE	1893456000	tt_webid	FAKE_WEBID_999
+www.tiktok.com	FALSE	/	TRUE	1893456000	tt_csrf_token	FAKE_CSRF_XYZ
+.example.com	TRUE	/	FALSE	1893456000	unrelated	SHOULD_BE_FILTERED_OUT
+.google.com	TRUE	/	TRUE	1893456000	NID	ALSO_FILTERED

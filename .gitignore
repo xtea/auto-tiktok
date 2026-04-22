@@ -1,0 +1,43 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+*.egg
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Virtual envs
+.venv/
+venv/
+env/
+
+# uv
+uv.lock
+
+# Cookies & secrets — NEVER commit these
+cookies.txt
+*.cookies
+*cookies*.txt
+.env
+.env.*
+sessions/
+
+# ...except the synthetic test fixtures (no real credentials)
+!tests/fixtures/*cookies*.txt
+
+# Local test artifacts
+videos/
+*.mp4
+*.mov
+
+# Editor
+.vscode/
+.idea/
+*.swp
+.DS_Store
