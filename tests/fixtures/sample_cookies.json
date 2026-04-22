@@ -1,0 +1,37 @@
+[
+  {
+    "domain": ".tiktok.com",
+    "expirationDate": 1893456000,
+    "hostOnly": false,
+    "httpOnly": true,
+    "name": "sessionid",
+    "path": "/",
+    "sameSite": "lax",
+    "secure": true,
+    "session": false,
+    "value": "FAKE_SESSION_JSON_ABC"
+  },
+  {
+    "domain": ".tiktok.com",
+    "expirationDate": 1893456000,
+    "hostOnly": false,
+    "httpOnly": false,
+    "name": "tt_webid",
+    "path": "/",
+    "sameSite": "lax",
+    "secure": true,
+    "session": false,
+    "value": "FAKE_WEBID_JSON_999"
+  },
+  {
+    "domain": ".example.com",
+    "expirationDate": 1893456000,
+    "hostOnly": false,
+    "httpOnly": false,
+    "name": "unrelated",
+    "path": "/",
+    "secure": false,
+    "session": false,
+    "value": "SHOULD_BE_FILTERED_OUT_JSON"
+  }
+]
